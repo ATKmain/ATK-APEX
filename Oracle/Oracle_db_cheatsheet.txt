@@ -1,0 +1,10 @@
+lcnerctl>lcnerctl status
+lcnerctl>lcnerctl start
+lcnerctl>lcnerctl stop
+
+sqlplus / as sysdba
+SQL> STARTUP OPEN;
+SQL> SHUTDOWN IMMEDIATE;
+sql> ALTER SYSTEM REGISTER
+sql> ALTER PLUGGABLE DATABASE ALL OPEN;
+sql> ALTER PLUGGABLE DATABASE ALL CLOSE IMMEDIATE;
