@@ -1,0 +1,57 @@
+1------------------------ A Application Process
+Process Point (Value Required)	: On Demand
+*Name (Value Required)	: GET_REPORT_HEADER_HELP
+type: PL/SQL Anonymous
+
+Source:
+
+DECLARE
+  l_sql VARCHAR2(32700);
+BEGIN
+ 
+  l_sql := '
+    SELECT PARAM,
+      VALUE
+    FROM ARK_PARAM
+    WHERE 
+      PAGE          = :APP_PAGE_ID
+      AND TYPE = ''COLUMN_HELP''
+      AND VALUE       IS NOT NULL
+  ';
+ 
+  APEX_UTIL.JSON_FROM_SQL(l_sql);
+ 
+EXCEPTION WHEN OTHERS THEN
+  HTP.prn('{"row":[]}');
+END;
+
+
+2---------------------- A Dynamic Action on the page.
+Name : Get and Set Header Help
+*Event (Value Required)	: After Refresh
+*Selection Type (Value Required)	: Region
+*Region (Value Required)	: {Report Region}
+Condition	: None
+
+True Action :
+Action: Execute JavaScript.
+Setting:
+$.ajax({
+ type:"POST",
+ url:"wwv_flow.show",
+ dataType:"json",
+ data:{
+  p_flow_id:"&APP_ID.",
+  p_flow_step_id:"&APP_PAGE_ID.",
+  p_instance:"&APP_SESSION.",
+  p_request:"APPLICATION_PROCESS=GET_REPORT_HEADER_HELP",
+  x01:this.triggeringElement.id
+ },
+ success:function(jd){
+  $.each(jd.row,function(i,jr){
+   $($x(jr.PARAM)).mouseover(function(evt){
+    toolTip_enable(evt,this,jr.VALUE)
+   });
+  });
+ }
+});

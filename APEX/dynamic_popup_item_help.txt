@@ -1,0 +1,34 @@
+1------------------------ A Application Process
+Process Point (Value Required)	: On Demand
+*Name (Value Required)	: GET_ATK_PARAM
+type: PL/SQL Anonymous
+
+Source:
+
+DECLARE
+  l_sql VARCHAR2(32700);
+BEGIN
+ 
+  l_sql := '
+    SELECT PARAM,
+      VALUE
+    FROM ATK_PARAM
+    WHERE 
+      PAGE          = :APP_PAGE_ID
+      AND TYPE = ''COLUMN_HELP''
+      AND VALUE       IS NOT NULL
+  ';
+ 
+  APEX_UTIL.JSON_FROM_SQL(l_sql);
+ 
+EXCEPTION WHEN OTHERS THEN
+  HTP.prn('{"row":[]}');
+END;
+
+2---------------- File JS/dynamic_popup_help.js  on the page template or anywhere
+
+3---------------------- Template
+In Report Template, section "Column Heading Template" Replace somthing like:
+<th #ALIGNMENT# id="#COLUMN_HEADER_NAME#" #COLUMN_WIDTH#>#COLUMN_HEADER</th>
+With :
+<th #ALIGNMENT# id="#COLUMN_HEADER_NAME#" #COLUMN_WIDTH#>#COLUMN_HEADER#&nbsp<a class="fa fa-question-circle" href="javascript:ARKpopupFieldHelp('#COLUMN_HEADER_NAME#')" tabindex="999" title="Click to see help and explanations."></a></th>
