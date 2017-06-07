@@ -1,0 +1,30 @@
+1------------
+A dynamic action in internal (iFram) page.
+*Event (Value Required)	: Change
+*Selection Type (Value Required) : Region
+*jQuery Selector (Value Required) : {The Tabular Form Region}
+Condition	: No Condition
+
+Action: (Execute Code)
+
+$('select[name="f10"]').on('change', function() {
+  var CSRShow = 'N' ;
+  $.each( $('select[name="f10"]') , function() {
+	  console.log(this.value);
+  if( this.value == 'Y' ){
+	  CSRShow = 'Y' ;
+	  
+  };
+  });
+  
+  if(CSRShow == 'Y'){
+	  $('#R88753821342084517', window.parent.document).fadeIn(1000);
+	  //alert("Your must enter SSL Certificates CSR in next section as well.");	  
+  }else{
+	  $('#R88753821342084517', window.parent.document).fadeOut(1000);
+	  //alert("CSR is not require.");	  
+  }  
+})
+
+
+2 ------- Similar for after page refresh too

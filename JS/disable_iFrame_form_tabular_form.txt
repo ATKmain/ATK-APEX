@@ -1,0 +1,28 @@
+Dynamic ActionEvent : After Refresh
+Selection Type: Item
+Item : {Form Item determin when to be ReadOnly/Disable)
+Condition : In list
+Value : Submitted,Implemented (any value)
+
+Action 1 (Disable Fields in Form): Execute JavaScript Code :
+$("form").find("input,textarea,select").prop("disabled",true);
+
+Action 2: (Disable fields and Hide Buttons in iFrames): Execute JavaScript Code :
+setTimeout(function(){ // First time exactly after refresh and load iFrame
+  $("form",$("iframe").contents()).find("input,textarea,select").prop("disabled",true);
+  $("form",$("iframe").contents()).find("[role='button']").hide();
+}, 1000); 
+
+setTimeout(function(){ // Second time in case of delay in load
+  $("form",$("iframe").contents()).find("input,textarea,select").prop("disabled",true);
+  $("form",$("iframe").contents()).find("[role='button']").hide();
+}, 4000); 
+
+
+/* To even disable clickes and similar for enter
+
+  $("form",$("iframe").contents()).find("a").click(function(e) {
+    e.preventDefault();
+  });
+
+*/

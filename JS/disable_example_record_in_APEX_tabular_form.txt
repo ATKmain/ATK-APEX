@@ -1,0 +1,8 @@
+Dynamic ActionEvent : After Refresh
+Selection Type: Region
+Action: Execute JavaScript Code :
+
+$( "td[headers='ID_DISPLAY']:contains('-1')" ).parent().find("input,textarea,select").prop("disabled",true);
+$( "td[headers='ID_DISPLAY']:contains('-1')" ).parent().find('td').css('color','DarkGray');
+$( "td[headers='ID_DISPLAY']:contains('-1')" ).parent().find("input,textarea,select").css('color','DarkGray');
+$( "td[headers='ID_DISPLAY']:contains('-1')" ).text("Example");
