@@ -16,5 +16,5 @@ Copyright (C) 2016 GNU General Public License Version 3:
     You should have received a copy of the GNU General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	
-Arash Tabeh Khalilian (ATK)
+ATK
 3/06/2016
